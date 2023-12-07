@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/Twitteryzeus/vani-chat-app/issues"
   },
-  "homepage": "https://github.com/Twitteryzeus/vani-chat-app#readme"
+  "homepage": "https://github.com/Twitteryzeus/vani-chat-app#readme",
+  "dependencies": {
+    "@apollo/server": "4.9.5",
+    "graphql": "16.8.1"
+  }
 }
