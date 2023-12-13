@@ -20,8 +20,13 @@
   "homepage": "https://github.com/Twitteryzeus/vani-chat-app#readme",
   "dependencies": {
     "@apollo/server": "4.9.5",
-    "graphql": "16.8.1",
-    "graphql-subscriptions": "2.0.0"
+    "@graphql-tools/schema": "10.0.2",
+    "express": "4.18.2",
+    "graphql-ws": "5.14.2",
+    "ws": "8.14.2"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/ws": "8.5.10"
+  }
 }

@@ -1,9 +1,18 @@
-const message = (ctx: any, args: any, info: any): string => {
-  console.log(`\n${JSON.stringify({ ctx, args, info }, null, 2)}\n`);
+import { pubsub, pubsub as pubsubClient } from './utils/pubsub-client.ts'
 
-  return 'Hello World!';
+const message = (ctx: any, args: any, info: any): string => 'Hello World!';
+
+const sendMessage = (ctx: any, args: any, info: any): string => {
+  pubsubClient.publish('NEW_MESSAGE_RECEIVED', { messageNotification: args })
+  return 'Message Sent Successfully!';
 }
 
 export const resolvers: any = {
-  Query: { message }
+  Query: { message },
+  Mutation: { sendMessage },
+  Subscription: {
+    messageNotification: {
+      subscribe: () => pubsub.asyncIterator('NEW_MESSAGE_RECEIVED')
+    }
+  }
 }
