@@ -8,6 +8,7 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { resolvers } from './resolver.ts';
 import { typeDefs } from './typedefs.ts';
+import { config } from './config/index.ts'
 
 // Create the schema, which will be used separately by ApolloServer and
 // the WebSocket server.
@@ -49,8 +50,7 @@ const server = new ApolloServer({
 await server.start();
 app.use('/graphql', express.json(), expressMiddleware(server));
 
-const PORT = 4000;
 // Now that our HTTP server is fully set up, we can listen to it.
-httpServer.listen(PORT, () => {
-  console.log(`Server is now running on http://localhost:${PORT}/graphql`);
+httpServer.listen(config.PORT, () => {
+  console.log(`Server is now running on http://localhost:${config.PORT}/graphql`);
 });
