@@ -1,20 +1,17 @@
 import * as dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 dotenv.config({ path: `${__dirname}/.env` });
 
-interface EnvironmentVariables {
-  PORT: number,
-  DB_HOST: string,
-  DB_PORT: number,
-  DB_NAME: string,
-}
-
-const envVariables: EnvironmentVariables = process.env as unknown as EnvironmentVariables
-
 export const config = {
-  PORT: envVariables.PORT,
+  PORT: parseInt(process.env.PORT || '4000'),
   MONGO: {
-    HOST: envVariables.DB_HOST,
-    PORT: envVariables.DB_PORT,
-    NAME: envVariables.DB_NAME
+    HOST: process.env.DB_HOST,
+    PORT: process.env.DB_PORT,
+    NAME: process.env.DB_NAME
   }
 }
