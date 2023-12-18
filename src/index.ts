@@ -6,7 +6,7 @@ import express from 'express';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
-import { resolvers } from './resolver.ts';
+import { resolvers } from './resolver/index.ts';
 import { typeDefs } from './typedefs.ts';
 import { config } from './config/index.ts'
 
