@@ -12,7 +12,7 @@ export const typeDefs = `#graphql
 
   type Mutation {
     sendMessage(message: String!): String
-    userLogin(data: UserLoginInput!): User!
+    userLogin(data: UserLoginInput!): UserLoginResponse!
   }
 
   type SubscriptionResponse {
@@ -26,5 +26,11 @@ export const typeDefs = `#graphql
   input UserLoginInput {
     email: String!
     name: String
+  }
+
+  type UserLoginResponse {
+    data: User!
+    message: String
+    status: Int
   }
 `;

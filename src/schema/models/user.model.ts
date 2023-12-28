@@ -14,10 +14,3 @@ export class User {
   @Column()
   token: string | undefined
 }
-
-export interface UserModelInterface {
-  id: string
-  name: string
-  email: string
-  token: string
-}
