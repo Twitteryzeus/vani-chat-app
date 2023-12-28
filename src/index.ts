@@ -52,7 +52,7 @@ await server.start();
 app.use('/graphql', express.json(), expressMiddleware(server));
 
 // Now that our HTTP server is fully set up, we can listen to it.
-httpServer.listen(config.PORT, () => {
+httpServer.listen(config.PORT, async () => {
   console.log(`Server is now running on http://localhost:${config.PORT}/graphql`);
-  myDataSource.initialize();
+  await myDataSource.initialize();
 });

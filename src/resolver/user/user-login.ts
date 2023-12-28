@@ -20,7 +20,9 @@ export const userLogin = async (ctx: any, args: any, info: any): Promise<object 
       const inputForUser = { ...data };
       inputForUser.token = encrypt({ email: data.email })
 
-      const newCreatedUser = await myDataSource.manager.create(User, inputForUser);
+      const newUser = myDataSource.manager.create(User, inputForUser);
+      const newCreatedUser = await myDataSource.manager.save(newUser);
+
       response.data = newCreatedUser as any
     } else {
       const newToken: string = encrypt({ email: data.email })
@@ -28,9 +30,6 @@ export const userLogin = async (ctx: any, args: any, info: any): Promise<object 
       await myDataSource.manager.update(User, { ...data, token: newToken }, { email: data.email });
       response.data = { ...existingUser, token: newToken }
     }
-
-    console.log(`\nUSER LOG->>>>\t${JSON.stringify(response, null, 2)}\n`);
-    
 
     return response
   } catch (error: any) {

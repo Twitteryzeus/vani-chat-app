@@ -4,7 +4,7 @@ export const typeDefs = `#graphql
   }
 
   type User {
-    id: ID
+    _id: ID
     name: String
     email: String
     token: String
