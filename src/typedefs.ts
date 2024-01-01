@@ -1,4 +1,6 @@
 export const typeDefs = `#graphql
+  directive @auth on FIELD_DEFINITION
+
   type Query {
     message: String
   }
@@ -11,7 +13,7 @@ export const typeDefs = `#graphql
   }
 
   type Mutation {
-    sendMessage(message: String!): String
+    sendMessage(message: String!): String @auth
     userLogin(data: UserLoginInput!): UserLoginResponse!
   }
 

@@ -10,10 +10,12 @@ import { resolvers } from './resolver/index.ts';
 import { typeDefs } from './typedefs.ts';
 import { config } from './config/index.ts'
 import { myDataSource } from './schema/index.ts'
+import { directiveSchema } from './directive/index.ts';
 
 // Create the schema, which will be used separately by ApolloServer and
 // the WebSocket server.
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+let schema = makeExecutableSchema({ typeDefs, resolvers });
+schema = directiveSchema(schema)
 
 // Create an Express app and HTTP server; we will attach both the WebSocket
 // server and the ApolloServer to this HTTP server.
