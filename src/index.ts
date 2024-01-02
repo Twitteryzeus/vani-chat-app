@@ -2,7 +2,7 @@ import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { createServer } from 'http';
-import express from 'express';
+import express, { RequestParamHandler } from 'express';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
@@ -30,6 +30,10 @@ const wsServer = new WebSocketServer({
 // Save the returned server's info so we can shutdown this server later
 const serverCleanup = useServer({ schema }, wsServer);
 
+interface MyApolloServerContext {
+  req: RequestParamHandler
+}
+
 // Set up ApolloServer.
 const server = new ApolloServer({
   schema,
@@ -51,7 +55,11 @@ const server = new ApolloServer({
 });
 
 await server.start();
-app.use('/graphql', express.json(), expressMiddleware(server));
+app.use('/graphql', express.json(), expressMiddleware(server, {
+  context: async ({ req, res }) => {
+    return { req }
+  }
+}));
 
 // Now that our HTTP server is fully set up, we can listen to it.
 httpServer.listen(config.PORT, async () => {
