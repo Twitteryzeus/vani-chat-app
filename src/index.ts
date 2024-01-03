@@ -10,12 +10,11 @@ import { resolvers } from './resolver/index.ts';
 import { typeDefs } from './typedefs.ts';
 import { config } from './config/index.ts'
 import { myDataSource } from './schema/index.ts'
-import { directiveSchema } from './directive/index.ts';
+import { context } from './utils/context.ts'
 
 // Create the schema, which will be used separately by ApolloServer and
 // the WebSocket server.
 let schema = makeExecutableSchema({ typeDefs, resolvers });
-schema = directiveSchema(schema)
 
 // Create an Express app and HTTP server; we will attach both the WebSocket
 // server and the ApolloServer to this HTTP server.
@@ -56,9 +55,7 @@ const server = new ApolloServer({
 
 await server.start();
 app.use('/graphql', express.json(), expressMiddleware(server, {
-  context: async ({ req, res }) => {
-    return { req }
-  }
+  context
 }));
 
 // Now that our HTTP server is fully set up, we can listen to it.
